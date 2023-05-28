@@ -1,0 +1,113 @@
+from tkinter import *
+from tkinter.messagebox import *
+                                                                        #   1 2 3
+                                                                        #   4 5 6
+                                                                        #   7 8 9
+aux = 'X'
+padraoX = ''
+padraoO = ''
+                                                         
+padroes_vencedores = [
+    ['1', '2', '3'],
+    ['4', '5', '6'], 
+    ['7', '8', '9'],
+    ['1', '4', '7'],
+    ['2', '5', '8'], 
+    ['3', '6', '9'],
+    ['1', '5', '9'],
+    ['3', '5', '7'],
+]
+
+class MainClass():
+
+    def __init__(self, referencia, texto, posicaox, posicaoy):
+        self.referencia = referencia
+        self.texto = texto
+        self.posicaox = posicaox
+        self.posicaoy = posicaoy
+    
+    def criabotao(self):
+        self.MainClass = Button(janela, text=self.texto, height=5, width=5, command=self.x_ou_o)
+        self.MainClass.grid(column=self.posicaox, row=self.posicaoy)
+
+    def fim_de_jogo():
+        global padroes_vencedores
+        global padraoO
+        global padraoX
+        for x in padroes_vencedores:
+            pontosO = 0
+            pontosX = 0
+            for y in x:
+                if y in padraoO:
+                    pontosO += 1
+                    if pontosO >= 3:
+                        print(pontosO)
+                        resposta = askyesno(title='FIM DE JOGO', message='bolinha venceu!  \n deseja jogar novamente?', icon='info')
+                        if resposta:
+                            ...
+                        else:
+                            janela.quit()
+                if y in padraoX:
+                    pontosX += 1
+                    if pontosX >=3:
+                        print(pontosX)
+                        resposta = askyesno(title='FIM DE JOGO', message='X venceu!  \n deseja jogar novamente?', icon='info')
+                        if resposta:
+                            ...
+                        else:
+                            janela.quit()
+
+    def x_ou_o(self):
+        global padraoO
+        global padraoX
+        global aux
+        if aux == 'X':
+            if self.MainClass['text'] == '':
+                self.MainClass['text'] = 'X'
+                padraoX += str(self.referencia)
+                aux = 'O'
+        elif aux == 'O':
+            if self.MainClass['text'] == '' :
+                self.MainClass['text'] = 'O'
+                padraoO += str(self.referencia)
+                aux = 'X'
+
+        print(f'\npadrao o = {padraoO}')
+        print(f'padrao x = {padraoX}\n')
+
+        MainClass.fim_de_jogo()
+
+            
+janela = Tk()
+#janela.geometry('600x600')
+janela.title('JOGO DA VELHA')
+
+b1 = MainClass(1, '', 0, 0)
+b1.criabotao()
+
+b2 = MainClass(2, '', 1, 0)
+b2.criabotao()
+
+b3 = MainClass(3, '', 2, 0)
+b3.criabotao()
+
+b4 = MainClass(4, '', 0, 1)
+b4.criabotao()
+
+b5 = MainClass(5, '', 1, 1)   
+b5.criabotao()
+
+b6 = MainClass(6, '', 2, 1)
+b6.criabotao()
+
+b7 = MainClass(7, '', 0, 2)
+b7.criabotao()
+
+b8 = MainClass(8, '', 1, 2)
+b8.criabotao()
+
+b9 = MainClass(9, '', 2, 2)
+b9.criabotao()
+
+
+janela.mainloop()
